@@ -19,17 +19,18 @@ public class PrincipalCtrl {
     
     Observer vista;
     
-    PrincipalCtrl(){
-    
+    PrincipalCtrl(Observer o){
+        vista=o;
     }
     
     void facturar(int codigo, int h, int perro, int cerv) throws IOException, JSONException,Exception{
         
     Factura facturita = new Factura();
-    
+    facturita.addObserver(vista);
     facturita.facturar(codigo, h, perro, cerv);
     
-    facturita.addObserver(vista);
+     
+    
     
     }
 

@@ -23,9 +23,27 @@ import org.json.JSONObject;
 public class Factura extends Observable {
     
     private String total;
+    private int bandera;
+    private String mensaje;
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
 
     public String getTotal() {
         return total;
+    }
+
+    public int getBandera() {
+        return bandera;
+    }
+
+    public void setBandera(int bandera) {
+        this.bandera = bandera;
     }
 
     public void setTotal(String total) {
@@ -37,7 +55,8 @@ public class Factura extends Observable {
     
     public void facturar (int codigo, int h, int perro, int cerv) throws JSONException, MalformedURLException, IOException{
         
-         JSONObject pedido = new JSONObject();
+        super.setChanged(); 
+        JSONObject pedido = new JSONObject();
         String[] productos = new String[]{"Hamburguesa", "Perro",  "Cerveza"};
 
 
@@ -71,13 +90,19 @@ public class Factura extends Observable {
                     System.out.println(precio.getString(0));
                     
                     this.setTotal(precio.getString(0));
-                    super.setChanged();
-                  
+                    
+                    System.out.println("precio " + total);
+                    
+                    //setChanged();
+                    bandera=0;
+                    
                     notifyObservers();
                     
                     
                     
                     if(nombreInsumo.length()!=0){
+                    bandera=1;
+                        
                     System.out.println("Necesario notificar...");
                     }
                 
@@ -85,7 +110,10 @@ public class Factura extends Observable {
                 
             } catch (Exception ex) {
                  
+                bandera=2;
                 System.out.println("Se produjo algún error.....");
+                
+                
             }
 
 
