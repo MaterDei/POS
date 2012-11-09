@@ -5,6 +5,8 @@
 package pos;
 
 import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.JSONException;
@@ -14,7 +16,7 @@ import org.json.JSONException;
  *
  * @author JAVIER
  */
-public class VentanaPrincipal extends javax.swing.JFrame {
+public  class VentanaPrincipal extends javax.swing.JFrame implements Observer{
     
     
     PrincipalCtrl control = new PrincipalCtrl();
@@ -217,4 +219,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(Observable o, Object arg) {
+        
+        Factura cuenta = (Factura)o;
+        String saldo = cuenta.getTotal();
+        jTextField4.setText(saldo);
+    
+    }
+
+   
+    
 }
